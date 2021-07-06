@@ -6,7 +6,7 @@ var popUpCss = `.popup {
                 text-align: center;
                 border-radius: 6px;
                 position: fixed;
-                z-index: 1;
+                z-index: 10000;
                 bottom: 120px;
                 right: 40px;
                 }
@@ -38,102 +38,101 @@ var popUpCss = `.popup {
                 to {opacity:1 ;}
                 }`
 
-var floatingButtonCss = `
-                .float{
-                    position:fixed;
-                    width:60px;
-                    height:60px;
-                    bottom:40px;
-                    right:40px;
-                    background-color:#a0d556;
-                    color:#FFF;
-                    border-radius:50px;
-                    text-align:center;
-                    box-shadow: 2px 2px 3px #999;
-                    z-index:1000;
-                    animation: bot-to-top 2s ease-out;
-                }
+var floatingButtonCss = `.float{
+                        position:fixed;
+                        width:60px;
+                        height:60px;
+                        bottom:40px;
+                        right:40px;
+                        background-color:#a0d556;
+                        color:#FFF;
+                        border-radius:50px;
+                        text-align:center;
+                        box-shadow: 2px 2px 3px #999;
+                        z-index:10000;
+                        animation: bot-to-top 2s ease-out;
+                    }
 
-                ul.ul-float{
-                    position:fixed;
-                    right:80px;
-                    padding-right:20px;
-                    bottom:40px;
-                    z-index:100;
-                }
+                    ul.ul-float{
+                        position:fixed;
+                        right:80px;
+                        padding-right:20px;
+                        bottom:40px;
+                        z-index:100;
+                    }
 
-                ul.ul-float li{
-                    float:left;
-                    list-style:none;
-                    margin-right:10px;
-                }
+                    ul.ul-float li{
+                        float:left;
+                        list-style:none;
+                        margin-right:10px;
+                    }
 
-                ul.ul-float li a{
-                    background-color:#a0d556;
-                    color:#FFF;
-                    border-radius:50px;
-                    text-align:center;
-                    box-shadow: 2px 2px 3px #999;
-                    width:60px;
-                    height:60px;
-                    display:block;
-                }
+                    ul.ul-float li a{
+                        background-color:#a0d556;
+                        color:#FFF;
+                        border-radius:50px;
+                        text-align:center;
+                        box-shadow: 2px 2px 3px #999;
+                        width:60px;
+                        height:60px;
+                        display:block;
+                    }
 
-                ul.ul-float:hover{
-                    visibility:visible!important;
-                    opacity:1!important;
-                }
+                    ul.ul-float:hover{
+                        visibility:visible!important;
+                        opacity:1!important;
+                    }
 
 
-                .my-float{
-                    font-size:20px!important;
-                    margin-top:18px;
-                }
+                    .my-float{
+                        font-size:20px!important;
+                        margin-top:18px;
+                    }
 
-                a#menu-share + ul{
-                visibility: hidden;
-                }
+                    div#menu-share + ul{
+                    visibility: hidden;
+                    }
 
-                a#menu-share:hover + ul{
-                visibility: visible;
-                animation: scale-in 0.5s;
-                }
+                    div#menu-share:hover + ul{
+                    visibility: visible;
+                    animation: scale-in 0.5s;
+                    }
 
-                a#menu-share i{
-                    animation: rotate-in 0.5s;
-                }
+                    div#menu-share i{
+                        animation: rotate-in 0.5s;
+                    }
 
-                a#menu-share:hover > i{
-                    animation: rotate-out 0.5s;
-                }
+                    div#menu-share:hover > i{
+                        animation: rotate-out 0.5s;
+                    }
 
-                @keyframes bot-to-top {
-                    0%   {bottom:-40px}
-                    50%  {bottom:40px}
-                }
+                    @keyframes bot-to-top {
+                        0%   {bottom:-40px}
+                        50%  {bottom:40px}
+                    }
 
-                @keyframes scale-in {
-                    from {transform: scale(0);opacity: 0;}
-                    to {transform: scale(1);opacity: 1;}
-                }
+                    @keyframes scale-in {
+                        from {transform: scale(0);opacity: 0;}
+                        to {transform: scale(1);opacity: 1;}
+                    }
 
-                @keyframes rotate-in {
-                    from {transform: rotate(0deg);}
-                    to {transform: rotate(360deg);}
-                }
+                    @keyframes rotate-in {
+                        from {transform: rotate(0deg);}
+                        to {transform: rotate(360deg);}
+                    }
 
-                @keyframes rotate-out {
-                    from {transform: rotate(360deg);}
-                    to {transform: rotate(0deg);}
-                }`;
+                    @keyframes rotate-out {
+                        from {transform: rotate(360deg);}
+                        to {transform: rotate(0deg);}
+                    }`;
 
 function createFloatingButton()
 {
     setCSS(floatingButtonCss);
     var div = document.createElement("div");
-    div.innerHTML = `<a href="#" class="float" id="menu-share">
+    div.innerHTML = `<div class="float" id="menu-share">
                     <i class="fa fa-bookmark my-float"></i>
-                    </a>
+                    </div>
                     <ul class="ul-float">
                     <li><a href="#">
                     <i class="fa fa-plus my-float"></i>
@@ -175,30 +174,23 @@ target = target[0];
 console.log(target);
 
 document.addEventListener("dragstart", (event)=>{
-    console.log(event.target);
     if(event.target.tagName){
         event.target.id = "draggedItem";
         event.dataTransfer.setData("text/plain", event.target.id);
     }else{
-        event.dataTransfer.setData("text/plain", event.target.data);
+        console.log(event.target);
+        console.log(event.target.data);
+        var text = event.target.data;
+        event.dataTransfer.setData("text/plain", text);
     }
 });
 
 target.addEventListener("dragover", (event)=>{
     event.preventDefault();
-    //event.dataTransfer.setData("text", event.target.id);
-    console.log(event.type);
-    console.log(event.target);
 });
 
 target.addEventListener("drop", (event)=>{
     event.preventDefault();
-    console.log(event.type);
-    // console.log(event.dataTransfer.getData('text/plain'));
-    // var id = event.dataTransfer.getData('text/plain');
-    // var draggedItem = document.getElementById(id);
-    // if(draggedItem)
-    //     draggedItem.removeAttribute("id");
     onDrop(event);
 });
 
@@ -222,12 +214,11 @@ var json = {
 function onDrop(event)
 {
     var elem = getDroppedElem(event);
-    //var data = getDataFromItem(item, numDropped);
     setDataToJson(elem, numDropped);
     setPopUp(json, numDropped);
     numDropped = (numDropped + 1)%3;
     togglePopUp();
-    setTimeout(togglePopUp, 30000);
+    setTimeout(togglePopUp, 3000);
 }
 
 function getDroppedElem(event)
@@ -236,6 +227,8 @@ function getDroppedElem(event)
     var draggedItem = document.getElementById(id);
     if(draggedItem)
         draggedItem.removeAttribute("id");
+    else
+        draggedItem = id;
 
     return draggedItem;
 }
@@ -248,13 +241,13 @@ function setDataToJson(elem, numDropped)
     }
     else if(numDropped == 1)
     {
-        if(elem) elem = elem.textContent;
+        if(elem.tagName) elem = elem.textContent;
         json["title"] = elem;
     }
     else if(numDropped == 2)
     {
-        if(elem) elem = elem.textContent;
-        json["price"]
+        if(elem.tagName) elem = elem.textContent;
+        json["price"] = elem
     }
 }
 
