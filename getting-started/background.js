@@ -37,34 +37,34 @@ chrome.action.onClicked.addListener((tab) => {
       db = DBOpenRequest.result;
 
       // Run the displayData() function to populate the task list with all the to-do list data already in the IDB
-      displayData();
+      //displayData();
     };
 
-  // This event handles the event whereby a new version of the database needs to be created
-  // Either one has not been created before, or a new version number has been submitted via the
-  // window.indexedDB.open line above
-  //it is only implemented in recent browsers
-  DBOpenRequest.onupgradeneeded = function(event) {
-    let db = event.target.result;
+    // This event handles the event whereby a new version of the database needs to be created
+    // Either one has not been created before, or a new version number has been submitted via the
+    // window.indexedDB.open line above
+    // it is only implemented in recent browsers
+    DBOpenRequest.onupgradeneeded = function(event) {
+      let db = event.target.result;
 
-    db.onerror = function(event) {
-      console.log("show your onerror");
+      db.onerror = function(event) {
+        console.log("show your onerror");
+      };
+
+      // Create an objectStore for this database
+
+      let objectStore = db.createObjectStore("ShopEverywhere", { keyPath: "taskTitle" });
+
+      // define what data items the objectStore will contain
+
+      objectStore.createIndex("hours", "hours", { unique: false });
+      objectStore.createIndex("minutes", "minutes", { unique: false });
+      objectStore.createIndex("day", "day", { unique: false });
+      objectStore.createIndex("month", "month", { unique: false });
+      objectStore.createIndex("year", "year", { unique: false });
+
+      objectStore.createIndex("notified", "notified", { unique: false });
     };
-
-    // Create an objectStore for this database
-
-    let objectStore = db.createObjectStore("ShopEverywhere", { keyPath: "taskTitle" });
-
-    // define what data items the objectStore will contain
-
-    objectStore.createIndex("hours", "hours", { unique: false });
-    objectStore.createIndex("minutes", "minutes", { unique: false });
-    objectStore.createIndex("day", "day", { unique: false });
-    objectStore.createIndex("month", "month", { unique: false });
-    objectStore.createIndex("year", "year", { unique: false });
-
-    objectStore.createIndex("notified", "notified", { unique: false });
-  };
 
 
 });
