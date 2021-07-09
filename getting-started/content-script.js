@@ -169,8 +169,11 @@ function createPopUp()
 
 createFloatingButton();
 createPopUp();
-var target = document.getElementsByClassName("float");
-target = target[0];
+var target = document.getElementsByClassName("float")[0];
+var plusTarget = document.getElementsByClassName("fa-plus")[0];
+var minusTarget = document.getElementsByClassName("fa-minus")[0];
+var key = 0;
+
 console.log(target);
 
 document.addEventListener("dragstart", (event)=>{
@@ -202,6 +205,17 @@ target.addEventListener("click", (event)=>{
     popup.classList.toggle("show");
 });
 
+plusTarget.addEventListener("click", (event)=>{
+    console.log(event.type);
+    setJsonToStorage(key, json);
+});
+
+minusTarget.addEventListener("click", (event)=>{
+    console.log(event.type);
+    var ret = getJsonFromStorage();
+
+    console.log(ret);
+});
 
 var numDropped = 0;
 var json = {
@@ -288,6 +302,22 @@ function setCSS(cssText)
     var style = document.createElement("style");
     style.appendChild(document.createTextNode(css));
     document.head.appendChild(style);
+}
+
+function setJsonToStorage(key, json)
+{
+    chrome.storage.sync.set({ [key] : json}, ()=>{
+        console.log('Value is set to ' + json);
+    });
+}
+
+function getJsonFromStorage()
+{
+    return chrome.storage.sync.get((result)=>{
+        console.log(result);
+
+        return result;
+    });
 }
 
 console.log("test success");
