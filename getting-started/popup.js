@@ -1,24 +1,21 @@
 // Initialize butotn with users's prefered color
-let changeColor = document.getElementById("changeColor");
-
-chrome.storage.sync.get("color", ({ color }) => {
-  changeColor.style.backgroundColor = color;
-});
+let run = document.getElementById("run");
+let view = document.getElementById("view");
 
 // When the button is clicked, inject setPageBackgroundColor into current page
-changeColor.addEventListener("click", async () => {
+run.addEventListener("click", async () => {
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+
+  console.log("activated");
 
   chrome.scripting.executeScript({
     target: { tabId: tab.id },
-    function: setPageBackgroundColor,
+    files: ['content-script.js'],
   });
 });
 
-// The body of this function will be execuetd as a content script inside the
-// current page
-function setPageBackgroundColor() {
-  chrome.storage.sync.get("color", ({ color }) => {
-    document.body.style.backgroundColor = color;
+view.addEventListener("click", async () => {
+  chrome.tabs.create({
+    url: 'options.html'
   });
-}
+});

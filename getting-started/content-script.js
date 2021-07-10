@@ -315,7 +315,6 @@ function getJsonFromStorage()
 {
     return chrome.storage.sync.get((result)=>{
         console.log(result);
-
         return result;
     });
 }
