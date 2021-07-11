@@ -20,27 +20,65 @@ function handleButtonClick(event) {
 }
 
 // Add a button to the page for each supplied color
-function constructOptions(buttonColors) {
-  chrome.storage.sync.get("color", (data) => {
-    let currentColor = data.color;
+async function constructOptions(buttonColors) {
+  // chrome.storage.sync.get("color", (data) => {
+  //   let currentColor = data.color;
 
-    // For each color we were provided…
-    for (let buttonColor of buttonColors) {
-      // …crate a button with that color…
-      let button = document.createElement("button");
-      button.dataset.color = buttonColor;
-      button.style.backgroundColor = buttonColor;
+  //   // For each color we were provided…
+  //   for (let buttonColor of buttonColors) {
+  //     // …crate a button with that color…
+  //     let button = document.createElement("button");
+  //     button.dataset.color = buttonColor;
+  //     button.style.backgroundColor = buttonColor;
 
-      // …mark the currently selected color…
-      if (buttonColor === currentColor) {
-        button.classList.add(selectedClassName);
+  //     // …mark the currently selected color…
+  //     if (buttonColor === currentColor) {
+  //       button.classList.add(selectedClassName);
+  //     }
+
+  //     // …and register a listener for when that button is clicked
+  //     button.addEventListener("click", handleButtonClick);
+  //     page.appendChild(button);
+  //   }
+  // });
+  let result = await getJsonFromStorage();
+  console.log(result);
+  for (let elem in result) {
+    console.log(elem);
+    setDataToHTML(result[elem]);
+  }
+}
+
+async function getJsonFromStorage()
+{
+    return new Promise((resolve, reject)=>{
+      try {
+          chrome.storage.sync.get(null, (result)=>{
+          console.log("yes", result);
+          resolve(result); })
       }
+      catch (error) {
+        reject(error);
+      }
+    });
+}
 
-      // …and register a listener for when that button is clicked
-      button.addEventListener("click", handleButtonClick);
-      page.appendChild(button);
-    }
-  });
+function setDataToHTML(data)
+{ 
+  let templete = document.createElement("div");
+  let image = document.createElement("img");
+  let title = document.createElement("div");
+  let price = document.createElement("div");
+
+  image.src = data['img'];
+  title.textContent = data['title'];
+  price.textContent = data['price'];
+
+  templete.appendChild(image);
+  templete.appendChild(title);
+  templete.appendChild(price);
+
+  document.body.appendChild(templete);
 }
 
 // Initialize the page by constructing the color options
