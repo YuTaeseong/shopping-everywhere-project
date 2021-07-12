@@ -208,6 +208,7 @@ target.addEventListener("click", (event)=>{
 plusTarget.addEventListener("click", (event)=>{
     console.log(event.type);
     setJsonToStorage(key, json);
+    clearPopUp();
 });
 
 minusTarget.addEventListener("click", (event)=>{
@@ -287,6 +288,19 @@ function setPopUp(json, numDropped)
         var popupprice = document.getElementById("popupprice");
         popupprice.innerHTML = json["price"];
     }
+}
+
+function clearPopUp()
+{
+    var popupimg = document.getElementById("popupimg");
+    popupimg.src = null;
+
+    var popuptitle = document.getElementById("popuptitle");
+    popuptitle.innerHTML = null;
+
+    var popupprice = document.getElementById("popupprice");
+    popupprice.innerHTML = null;
+    
 }
 
 function togglePopUp()
