@@ -11,3 +11,20 @@ button.current {
   box-shadow: 0 0 0 2px white,
               0 0 0 4px black;
 }
+
+ul.myList {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+
+  max-width: 900px;
+  width : 100%
+}
+
+ul.myList li {
+  padding: 10px;
+  margin-bottom: 5px;
+  border : 1px solid #efefef;
+  font-size: 12px;
+  display: inline-block;
+}
