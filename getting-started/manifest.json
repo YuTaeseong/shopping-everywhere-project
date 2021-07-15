@@ -24,7 +24,7 @@
   },
   "options_page": "options.html",
   "web_accessible_resources" : [{
-    "resources" : ["main.js", "float.js"],
+    "resources" : ["main.js", "float-button.js", "button-popup.js"],
     "matches" : ["<all_urls>"]
     }
   ]
