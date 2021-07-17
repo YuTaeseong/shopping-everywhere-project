@@ -63,6 +63,7 @@ export class FloatingButton
             this.setJsonToStorage();
             this._key += 1;
             this._popUp.clearPopUp();
+            this.clearJson();
         });
             
         this._minusButton.addEventListener("click", (event)=>{
@@ -126,18 +127,28 @@ export class FloatingButton
             return result;
         });
     }
+
+    clearJson()
+    {
+        this._json = {
+            'img' : null,
+            'href' : null,
+            'title' : null,
+            'price' : null
+            };
+    }
 }
 
 const templete = `<div class="float" id="menu-share">
 <i class="fa fa-bookmark my-float"></i>
 </div>
 <ul class="ul-float">
-<li><a href="#">
+<li><div>
 <i class="fa fa-plus my-float"></i>
-</a></li>
-<li><a href="#">
+</div></li>
+<li><div>
 <i class="fa fa-minus my-float"></i>
-</a></li>
+</div></li>
 </ul>`;
 
 const css = `.float{
@@ -153,6 +164,7 @@ const css = `.float{
     box-shadow: 2px 2px 3px #999;
     z-index:10000;
     animation: bot-to-top 2s ease-out;
+    cursor : pointer;
 }
 
 ul.ul-float{
@@ -160,7 +172,7 @@ ul.ul-float{
     right:80px;
     padding-right:20px;
     bottom:40px;
-    z-index:100;
+    z-index:10000;
 }
 
 ul.ul-float li{
@@ -169,7 +181,7 @@ ul.ul-float li{
     margin-right:10px;
 }
 
-ul.ul-float li a{
+ul.ul-float li div{
     background-color:#a0d556;
     color:#FFF;
     border-radius:50px;
@@ -178,6 +190,7 @@ ul.ul-float li a{
     width:60px;
     height:60px;
     display:block;
+    cursor : pointer;
 }
 
 ul.ul-float:hover{

@@ -16,6 +16,6 @@ run.addEventListener("click", async () => {
 
 view.addEventListener("click", async () => {
   chrome.tabs.create({
-    url: 'options.html'
+    url: 'view.html'
   });
 });

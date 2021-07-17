@@ -84,6 +84,11 @@ const css = `
     right: 40px;
     }
 
+.popup img {
+    height: 100%;
+    width: 100%;
+}
+
 .popup::after {
     content: "";
     position: absolute;
@@ -95,18 +100,18 @@ const css = `
     border-color: #555 transparent transparent transparent;
     }
 
-    .show {
+.show {
     visibility: visible;
     -webkit-animation: fadeIn 1s;
     animation: fadeIn 1s;
-    }
+}
 
-    @-webkit-keyframes fadeIn {
-        from {opacity: 0;} 
-        to {opacity: 1;}
-    }
-    
-    @keyframes fadeIn {
+@-webkit-keyframes fadeIn {
+    from {opacity: 0;} 
+    to {opacity: 1;}
+}
+
+@keyframes fadeIn {
     from {opacity: 0;}
     to {opacity:1 ;}
 }`
