@@ -65,7 +65,7 @@ export class ButtonPopUp {
 }
 
 const templete = `
-<img id='popupimg'></img>
+<img id='popupimg' src = './images/get_started128.png'></img>
 <div id='popuptitle'>title</div>
 <div id='popupprice'>price</div>
 `;
