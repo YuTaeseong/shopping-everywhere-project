@@ -10,11 +10,7 @@ export class FloatingButton
             'price' : null
             };
 
-        this._key = async ()=>{
-            let ret = await this.getJsonFromStorage();
-            return Object.keys(ret).length;
-        };
-
+        this._key = null;
         this._mainButton = null;
         this._plusButton = null;
         this._minusButton = null;
@@ -69,12 +65,12 @@ export class FloatingButton
         });
             
         this._minusButton.addEventListener("click", async (event)=>{
-        console.log(event.type);
-        let ret = await this.getJsonFromStorage();
-        
-        console.log(ret);
-        console.log(Object.keys(ret));
-        console.log(Object.keys(ret).length);
+            console.log(event.type);
+            let ret = await this.getJsonFromStorage();
+            
+            console.log(ret);
+            console.log(Object.keys(ret));
+            console.log(Object.keys(ret).length);
         });
     }
 
@@ -84,7 +80,6 @@ export class FloatingButton
         this._popUp.setPopUp(this._json, this._numDropped);
         this._numDropped = (this._numDropped + 1)%3;
         this._popUp.togglePopUp();
-        console.log("2")
         setTimeout(()=>this._popUp.togglePopUp(), 3000);
     }
 
@@ -119,10 +114,11 @@ export class FloatingButton
         }
     }
 
-    setJsonToStorage()
+    async setJsonToStorage()
     {
-        chrome.storage.sync.set({ [this._key()] : this._json}, ()=>{
-        console.log('Value is set to ' + this._json);
+        await this.setKey();
+        chrome.storage.sync.set({ [this._key] : this._json}, ()=>{
+            console.log('Value is set to ', this._json);
         });
     }
 
@@ -148,6 +144,12 @@ export class FloatingButton
             'title' : null,
             'price' : null
             };
+    }
+
+    async setKey()
+    {
+        let result = await this.getJsonFromStorage();
+        this._key = Object.keys(result).length;
     }
 }
 

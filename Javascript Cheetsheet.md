@@ -12,4 +12,26 @@ then / catch
 
 async / await
 
+- async await chain
+```
+    async setJsonToStorage()
+    {
+        await this.setKey();
+        console.log(this._key);
+        chrome.storage.sync.set({ [this._key] : this._json}, ()=>{
+            console.log('Value is set to ', this._json);
+        });
+    }
+```
+
 Promise
+
+- Promise chain
+
+callback 안의 this
+
+-
+```
+    setTimeout(()=>this._popUp.togglePopUp(), 3000);
+```
+
