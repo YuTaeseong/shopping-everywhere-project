@@ -57,9 +57,9 @@ export class FloatingButton
             this._popUp.togglePopUp("show");
         });
 
-        this._plusButton.addEventListener("click", (event)=>{
+        this._plusButton.addEventListener("click", async (event)=>{
             console.log(event.type);
-            this.setJsonToStorage();
+            await this.setJsonToStorage();
             this._popUp.clearPopUp();
             this.clearJson();
         });
