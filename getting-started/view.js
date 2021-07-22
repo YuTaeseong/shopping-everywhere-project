@@ -23,8 +23,10 @@ async function getJsonFromStorage()
 
 function deleteDataFromStorage(key)
 {
-  chrome.storage.sync.remove(key, (result)=>console.log(result));
+  chrome.storage.sync.remove(key);
 }
+
+
 
 function setDataToHTML(key, data)
 { 
@@ -39,6 +41,15 @@ function setDataToHTML(key, data)
   price.textContent = data['price'];
   deleteButton.textContent = "delete";
   deleteButton.className += "delete";
+
+  deleteButton.addEventListener("click", (event)=>{
+    console.log(event);
+    console.log(event.target);
+    console.log(event.target.parentElement);
+    console.log(event.target.parentElement.id);
+    deleteDataFromStorage(event.target.parentElement.id);
+    location.reload();
+  })
 
   templete.appendChild(image);
   templete.appendChild(title);

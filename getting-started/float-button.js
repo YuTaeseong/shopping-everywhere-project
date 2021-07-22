@@ -10,7 +10,7 @@ export class FloatingButton
             'price' : null
             };
 
-        this._key = null;
+        this._key = () =>new Date();
         this._mainButton = null;
         this._plusButton = null;
         this._minusButton = null;
@@ -57,9 +57,9 @@ export class FloatingButton
             this._popUp.togglePopUp("show");
         });
 
-        this._plusButton.addEventListener("click", async (event)=>{
+        this._plusButton.addEventListener("click", (event)=>{
             console.log(event.type);
-            await this.setJsonToStorage();
+            this.setJsonToStorage();
             this._popUp.clearPopUp();
             this.clearJson();
         });
@@ -114,10 +114,9 @@ export class FloatingButton
         }
     }
 
-    async setJsonToStorage()
+    setJsonToStorage()
     {
-        await this.setKey();
-        chrome.storage.sync.set({ [this._key] : this._json}, ()=>{
+        chrome.storage.sync.set({ [this._key()] : this._json}, ()=>{
             console.log('Value is set to ', this._json);
         });
     }
@@ -144,12 +143,6 @@ export class FloatingButton
             'title' : null,
             'price' : null
             };
-    }
-
-    async setKey()
-    {
-        let result = await this.getJsonFromStorage();
-        this._key = Object.keys(result).length;
     }
 }
 
