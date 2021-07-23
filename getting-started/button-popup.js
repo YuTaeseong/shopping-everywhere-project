@@ -11,7 +11,7 @@ export class ButtonPopUp {
     }
 
     build() {
-        let div = document.createElement("div");
+        let div = document.createElement("ul");
         div.className += "popup";
         div.id = "myPopup";
         div.innerHTML = this._templete;
@@ -26,6 +26,8 @@ export class ButtonPopUp {
         this._img = document.getElementById("popupimg");
         this._title = document.getElementById("popuptitle");
         this._price = document.getElementById("popupprice");
+
+        this._img.src = chrome.runtime.getURL("images/get_started16.png")
     }
 
     setPopUp(json, numDropped)
@@ -51,9 +53,9 @@ export class ButtonPopUp {
 
     clearPopUp()
     {
-        this._img.src = null;
-        this._title.innerHTML = null;
-        this._price.innerHTML = null;
+        this._img.src = chrome.runtime.getURL("images/get_started16.png");
+        this._title.innerHTML = "title";
+        this._price.innerHTML = "price";
     }
 
     togglePopUp()
@@ -65,9 +67,9 @@ export class ButtonPopUp {
 }
 
 const templete = `
-<img id='popupimg' src = './images/get_started128.png'></img>
-<div id='popuptitle'>title</div>
-<div id='popupprice'>price</div>
+<li><img id='popupimg'></img></li>
+<li><div id='popuptitle'>title</div></li>
+<li><div id='popupprice'>price</div></li>
 `;
 
 const css = `

@@ -1,24 +1,10 @@
-button {
-  height: 30px;
-  width: 30px;
-  outline: none;
-  margin: 10px;
-  border: none;
-  border-radius: 2px;
-}
-
-button.current {
-  box-shadow: 0 0 0 2px white,
-              0 0 0 4px black;
-}
-
 ul.myList {
   list-style: none;
   margin: 0px;
   padding: 0px;
 
   max-width: 900px;
-  width : 100%
+  width : 100%;
 }
 
 ul.myList li {

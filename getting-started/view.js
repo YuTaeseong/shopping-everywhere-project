@@ -26,8 +26,6 @@ function deleteDataFromStorage(key)
   chrome.storage.sync.remove(key);
 }
 
-
-
 function setDataToHTML(key, data)
 { 
   let templete = document.createElement("li");

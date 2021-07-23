@@ -47,7 +47,9 @@ export class FloatingButton
             
         this._mainButton.addEventListener("drop", (event)=>{
             event.preventDefault();
-            this.onDrop(event);
+            if(this._numDropped <= 2){
+                this.onDrop(event);
+            }
         });
 
         this._mainButton.addEventListener("click", (event)=>{
@@ -60,6 +62,7 @@ export class FloatingButton
         this._plusButton.addEventListener("click", (event)=>{
             console.log(event.type);
             this.setJsonToStorage();
+            this._numDropped = 0;
             this._popUp.clearPopUp();
             this.clearJson();
         });
@@ -78,7 +81,8 @@ export class FloatingButton
         let elem = this.getDroppedElem(event);
         this.setDataToJson(elem, this._numDropped);
         this._popUp.setPopUp(this._json, this._numDropped);
-        this._numDropped = (this._numDropped + 1)%3;
+        this._numDropped = (this._numDropped + 1);
+
         this._popUp.togglePopUp();
         setTimeout(()=>this._popUp.togglePopUp(), 3000);
     }
