@@ -4,7 +4,7 @@ export class FloatingButton
         this._templete = templete;
         this._numDropped = 0;
         this._json = {
-            'img' : null,
+            'img' : chrome.runtime.getURL("images/get_started16.png"),
             'href' : null,
             'title' : null,
             'price' : null
@@ -70,6 +70,8 @@ export class FloatingButton
         this._minusButton.addEventListener("click", async (event)=>{
             console.log(event.type);
             let ret = await this.getJsonFromStorage();
+            this._popUp.clearPopUp();
+            this.clearJson();
             
             console.log(ret);
             console.log(Object.keys(ret));
@@ -142,7 +144,7 @@ export class FloatingButton
     clearJson()
     {
         this._json = {
-            'img' : null,
+            'img' : chrome.runtime.getURL("images/get_started16.png"),
             'href' : null,
             'title' : null,
             'price' : null

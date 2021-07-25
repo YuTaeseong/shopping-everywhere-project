@@ -67,9 +67,9 @@ export class ButtonPopUp {
 }
 
 const templete = `
-<li><img id='popupimg'></img></li>
-<li><div id='popuptitle'>title</div></li>
-<li><div id='popupprice'>price</div></li>
+<li><div><img id='popupimg'></img></div><button></button></li>
+<li><div><div id='popuptitle'>title</div></div><button></button></li>
+<li><div><div id='popupprice'>price</div></div><button></button></li>
 `;
 
 const css = `

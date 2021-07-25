@@ -24,6 +24,35 @@ async / await
     }
 ```
 
+```
+```
+function f1()
+{
+    return new Promise();
+}
+
+
+async function f2()
+{
+    await f1();
+}
+
+async function f3()
+{
+    await f2();
+}
+
+async function f4()
+{
+    await f3();
+}
+
+f(4);
+```
+
+async chain
+
+
 Promise
 
 - Promise chain
