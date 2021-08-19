@@ -11,7 +11,7 @@ export class ButtonPopUp {
     }
 
     build() {
-        let div = document.createElement("ul");
+        let div = document.createElement("div");
         div.className += "popup";
         div.id = "myPopup";
         div.innerHTML = this._templete;
@@ -23,9 +23,9 @@ export class ButtonPopUp {
         document.head.appendChild(style);
 
         this._mainPopup = document.getElementById("myPopup");
-        this._img = document.getElementById("popupimg");
-        this._title = document.getElementById("popuptitle");
-        this._price = document.getElementById("popupprice");
+        this._img = document.getElementById("popup_img");
+        this._title = document.getElementById("popup_title");
+        this._price = document.getElementById("popup_price");
 
         this._img.src = chrome.runtime.getURL("images/get_started16.png")
     }
@@ -67,13 +67,22 @@ export class ButtonPopUp {
 }
 
 const templete = `
-<li><div><img id='popupimg'></img></div><button></button></li>
-<li><div><div id='popuptitle'>title</div></div><button></button></li>
-<li><div><div id='popupprice'>price</div></div><button></button></li>
+<div class = 'popup_item'>
+<span class="fa fa-circle"></span><div><img id='popup_img'></img></div>
+</div>
+<div class = 'popup_item'>
+<span class="fa fa-circle-thin"></span><div><div id='popup_title'>title</div></div>
+</div>
+<div class = 'popup_item'>
+<span class="fa fa-circle-thin"></span><div><div id='popup_price'>price</div></div>
+</div>
 `;
 
 const css = `
 .popup {
+    display : flex;
+    justify-content: space-around;
+    flex-direction : column;
     visibility: hidden;
     width: 160px;
     background-color: #555;
@@ -91,6 +100,16 @@ const css = `
     width: 100%;
 }
 
+.popup_item div {
+    flex-grow : 2;
+}
+
+.popup > .popup_item {
+    display : flex;
+    justify-content: space-around;
+    align-items : center;
+}
+
 .popup::after {
     content: "";
     position: absolute;
@@ -100,7 +119,7 @@ const css = `
     border-width: 5px;
     border-style: solid;
     border-color: #555 transparent transparent transparent;
-    }
+}
 
 .show {
     visibility: visible;
