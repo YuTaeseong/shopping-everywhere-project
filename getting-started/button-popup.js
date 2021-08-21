@@ -31,9 +31,20 @@ export class ButtonPopUp {
     }
 
     bindListener() {
-        function onChange(me, i) {
-            console.log(me);
-            alert(me.value);
+        function onChange(parNode, inputNode, originNode, i) {
+            console.log(inputNode);
+            console.log(originNode);
+            alert(inputNode.value);
+
+            if(originNode.tagName == 'IMG') {
+                console.log("img");
+                originNode.src = inputNode.value;
+            }
+            else {
+                originNode.innerHTML = inputNode.value;
+            }
+
+            parNode.replaceChild(originNode, parNode.firstChild);
         }
 
         for(let i=1; i <= 3; i++) {
@@ -41,8 +52,12 @@ export class ButtonPopUp {
             elem.addEventListener("click", (event)=>{
                 console.log(event);
                 let parNode = document.querySelector(`#myPopup > div:nth-child(${i}) > div`);
+                let originNode = parNode.firstChild;
                 let inputNode = document.createElement('input'); 
-                inputNode.addEventListener('change', ()=>onChange(inputNode, i));
+                inputNode.addEventListener('change', ()=>onChange(parNode, inputNode, originNode, i));
+
+                console.log(this);
+                this.moveIndicator(i-1);
                 parNode.replaceChild(inputNode,parNode.firstChild);
             })
         }
@@ -85,10 +100,12 @@ export class ButtonPopUp {
 
     moveIndicator(numDropped)
     {
-        let prevElem = document.querySelector(`#myPopup > div:nth-child(${numDropped}) > span`);
+        for(let i = 1; i <= 3; i++) {
+            let prevElem = document.querySelector(`#myPopup > div:nth-child(${i}) > span`);
 
-        prevElem.classList.remove("fa-circle");
-        prevElem.classList.add("fa-circle-thin");
+            prevElem.classList.remove("fa-circle");
+            prevElem.classList.add("fa-circle-thin");
+        }
 
         let elem = document.querySelector(`#myPopup > div:nth-child(${numDropped + 1}) > span`);
 
