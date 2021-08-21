@@ -38,6 +38,8 @@ export class FloatingButton
         this._mainButton = document.getElementsByClassName("float")[0];
         this._plusButton = document.getElementsByClassName("fa-plus")[0];
         this._minusButton = document.getElementsByClassName("fa-minus")[0];
+
+        this._popUp.bindListener();
     }
 
     bindListener() {
@@ -49,6 +51,7 @@ export class FloatingButton
             event.preventDefault();
             if(this._numDropped <= 2){
                 this.onDrop(event);
+                this._popUp.moveIndicator(this._numDropped);
             }
         });
 
@@ -89,8 +92,7 @@ export class FloatingButton
         setTimeout(()=>this._popUp.togglePopUp(), 3000);
     }
 
-    getDroppedElem(event)
-    {
+    getDroppedElem(event) {
         let id = event.dataTransfer.getData('text/plain');
         let draggedItem = document.getElementById(id);
 
@@ -102,8 +104,7 @@ export class FloatingButton
         return draggedItem;
     }
 
-    setDataToJson(elem, numDropped)
-    {
+    setDataToJson(elem, numDropped) {
         if(numDropped == 0 && elem.tagName == "IMG")
         {
             this._json["img"] = elem.src;
@@ -120,15 +121,13 @@ export class FloatingButton
         }
     }
 
-    setJsonToStorage()
-    {
+    setJsonToStorage() {
         chrome.storage.sync.set({ [this._key()] : this._json}, ()=>{
             console.log('Value is set to ', this._json);
         });
     }
 
-    async getJsonFromStorage()
-    {
+    async getJsonFromStorage() {
         return new Promise((resolve, reject)=>{
           try {
               chrome.storage.sync.get(null, (result)=>{
@@ -141,8 +140,7 @@ export class FloatingButton
         });
     }
 
-    clearJson()
-    {
+    clearJson() {
         this._json = {
             'img' : chrome.runtime.getURL("images/get_started16.png"),
             'href' : null,

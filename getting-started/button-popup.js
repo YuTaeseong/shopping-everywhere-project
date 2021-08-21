@@ -30,6 +30,24 @@ export class ButtonPopUp {
         this._img.src = chrome.runtime.getURL("images/get_started16.png")
     }
 
+    bindListener() {
+        function onChange(me, i) {
+            console.log(me);
+            alert(me.value);
+        }
+
+        for(let i=1; i <= 3; i++) {
+            let elem = document.querySelector(`#myPopup > div:nth-child(${i}) > span`);
+            elem.addEventListener("click", (event)=>{
+                console.log(event);
+                let parNode = document.querySelector(`#myPopup > div:nth-child(${i}) > div`);
+                let inputNode = document.createElement('input'); 
+                inputNode.addEventListener('change', ()=>onChange(inputNode, i));
+                parNode.replaceChild(inputNode,parNode.firstChild);
+            })
+        }
+    }
+
     setPopUp(json, numDropped)
     {
         console.log(json);
@@ -63,6 +81,21 @@ export class ButtonPopUp {
         console.log("toggle");
         console.log(this._mainPopup);
         this._mainPopup.classList.toggle("show");
+    }
+
+    moveIndicator(numDropped)
+    {
+        let prevElem = document.querySelector(`#myPopup > div:nth-child(${numDropped}) > span`);
+
+        prevElem.classList.remove("fa-circle");
+        prevElem.classList.add("fa-circle-thin");
+
+        let elem = document.querySelector(`#myPopup > div:nth-child(${numDropped + 1}) > span`);
+
+        elem.classList.remove("fa-circle-thin");
+        elem.classList.add("fa-circle");
+
+        console.log(elem);
     }
 }
 
@@ -102,6 +135,10 @@ const css = `
 
 .popup_item div {
     flex-grow : 2;
+}
+
+.popup_item > span {
+    cursor : pointer;
 }
 
 .popup > .popup_item {
