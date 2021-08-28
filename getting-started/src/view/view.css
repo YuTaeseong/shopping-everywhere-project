@@ -1,0 +1,27 @@
+ul.myList {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+
+  max-width: 900px;
+  width : 100%;
+}
+
+ul.myList li {
+  padding: 10px;
+  margin-bottom: 5px;
+  border : 1px solid #efefef;
+  font-size: 12px;
+  display: inline-block;
+  width : 200px;
+}
+
+ul.myList li img{
+  width : 100%;
+}
+
+ul.myList li div.delete{
+  cursor : pointer;
+  text-align: right;
+  color : blue;
+}
